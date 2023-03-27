@@ -33,8 +33,8 @@ class _bloco_2State extends State<bloco_2> {
 Widget bloco_0() {
   return Container(
     decoration: BoxDecoration(
-        color: Color(0xffF8B182), borderRadius: BorderRadius.circular(50)),
-    margin: EdgeInsets.symmetric(horizontal: 100),
+        color: Color(0xffF8B182), borderRadius: BorderRadius.circular(30)),
+    margin: EdgeInsets.symmetric(horizontal: 150),
     height: 500,
     alignment: Alignment.bottomCenter,
     padding: EdgeInsets.only(left: 70),
