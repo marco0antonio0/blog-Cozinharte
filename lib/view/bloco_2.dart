@@ -54,9 +54,24 @@ Widget bloco_0(largura) {
         Container(
           height: responsive_altura,
           padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-          child: Text(
-            issoeotexto,
-            textAlign: TextAlign.center,
+          child: Column(
+            children: [
+              Container(
+                height: responsive_altura * 0.4,
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(30),
+                    image: DecorationImage(
+                        image: AssetImage("images/imagemtext_bloco0.jpg"))),
+              ),
+              Container(
+                width: responsive_largura * 0.3,
+                margin: EdgeInsets.only(top: 30),
+                child: Text(
+                  issoeotexto,
+                  textAlign: TextAlign.justify,
+                ),
+              )
+            ],
           ),
           width: responsive_largura * 0.4,
         ),
@@ -65,7 +80,7 @@ Widget bloco_0(largura) {
           padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
           child: Text(
             issoeotexto2,
-            textAlign: TextAlign.center,
+            textAlign: TextAlign.justify,
           ),
           width: responsive_largura * 0.6,
         ),
@@ -85,4 +100,9 @@ Widget bloco_1(responsive) {
     padding: EdgeInsets.only(left: 70),
     color: Color(0xffF67968),
   );
+}
+
+Widget img_person() {
+  return Container(
+      child: Image(image: AssetImage('Images/imagemtext_bloco0.jpg')));
 }
