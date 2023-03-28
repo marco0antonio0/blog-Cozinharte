@@ -20,7 +20,7 @@ class _bloco_2State extends State<bloco_2> {
             : 80;
     return Column(
       children: [
-        bloco_0(),
+        bloco_0(largura),
         Container(
           height: 30,
         ),
@@ -30,14 +30,51 @@ class _bloco_2State extends State<bloco_2> {
   }
 }
 
-Widget bloco_0() {
+Widget bloco_0(largura) {
+  print(largura);
+  double responsive_largura = 1000;
+  double responsive_altura = 500;
+  if (largura < 1065) responsive_largura -= 100;
+  if (largura <= 935) responsive_largura -= 100;
+  if (largura <= 827) responsive_largura -= 100;
+  if (largura <= 725) responsive_largura -= 100;
+  if (largura <= 600) responsive_largura -= 100;
+  if (largura <= 500) responsive_largura -= 100;
+  //=============================================
+  if (largura < 922) responsive_altura -= 100;
+/*   if (largura < 725) responsive_altura -= 100;
+  if (largura < 725) responsive_altura -= 100; */
+  String issoeotexto =
+      "CHEF ISADORA OLIVEIRA, UMA RENOMADA CHEF DE COZINHA FORMADA EM GASTRONOMIA PELA PRESTIGIADA Escola Le CORDON BLEU EM PARIS.";
+  String issoeotexto2 =
+      "Com uma paixão avassaladora pela culinária desde criança, Isadora sempre esteve à frente das panelas, experimentando novos ingredientes, combinações de sabores e criando pratos incríveis. Com anos de experiência em cozinhas de renomados restaurantes internacionais, Isadora decidiu que era hora de compartilhar seus conhecimentos e sua paixão pela culinária com o mundo. Foi assim que ela decidiu criar seu blog de receitas culinárias, onde busca inspirar e incentivar pessoas de todos os lugares a experimentar novas receitas e criar momentos inesquecíveis ao redor da mesa. Em seu blog, Isadora oferece uma variedade de receitas, desde opções simples e rápidas para o dia a dia até pratos elaborados e sofisticados para ocasiões especiais. Ela acredita que a comida é uma forma de amor e que cada prato que preparamos deve ser feito com cuidado, amor e dedicação. Seu vasto conhecimento em gastronomia e sua paixão pela culinária, Isadora promete trazer a vocês uma experiência única e saborosa. Junte-se a ela nessa jornada culinária e descubra novos sabores e possibilidades na cozinha!";
   return Container(
+    child: Row(
+      children: [
+        Container(
+          height: responsive_altura,
+          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+          child: Text(
+            issoeotexto,
+            textAlign: TextAlign.center,
+          ),
+          width: responsive_largura * 0.4,
+        ),
+        Container(
+          height: responsive_altura,
+          padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+          child: Text(
+            issoeotexto2,
+            textAlign: TextAlign.center,
+          ),
+          width: responsive_largura * 0.6,
+        ),
+      ],
+    ),
+    width: responsive_largura,
     decoration: BoxDecoration(
         color: Color(0xffF8B182), borderRadius: BorderRadius.circular(30)),
-    margin: EdgeInsets.symmetric(horizontal: 150),
-    height: 500,
-    alignment: Alignment.bottomCenter,
-    padding: EdgeInsets.only(left: 70),
+    height: responsive_altura,
   );
 }
 
