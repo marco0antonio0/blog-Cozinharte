@@ -3,7 +3,7 @@ import 'dart:js';
 import 'package:blog_grupo/view/widget.dart';
 import 'package:flutter/material.dart';
 
-//=================================================================== essa é a minha
+//=================================================================== essa é a minha alteração
 //
 class bloco_2 extends StatefulWidget {
   const bloco_2({super.key});
