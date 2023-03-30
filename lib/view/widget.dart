@@ -1,22 +1,33 @@
 import 'package:flutter/material.dart';
 
 //==========================================================================
-SelectableText textPerson(
+Widget textPerson(
     {text = '',
+    enable = true,
     fontSize = 20,
     fontWeight = null,
     color = const Color(0xffEC998E),
     fontStyle = FontStyle.normal,
     TextAlign = TextAlign.left}) {
-  return SelectableText(
-    text,
-    style: TextStyle(
-        fontSize: fontSize * 1,
-        fontWeight: fontWeight,
-        color: color,
-        fontStyle: fontStyle),
-    textAlign: TextAlign,
-  );
+  return enable
+      ? SelectableText(
+          text,
+          style: TextStyle(
+              fontSize: fontSize * 1,
+              fontWeight: fontWeight,
+              color: color,
+              fontStyle: fontStyle),
+          textAlign: TextAlign,
+        )
+      : SelectableText(
+          text,
+          style: TextStyle(
+              fontSize: fontSize * 1,
+              fontWeight: fontWeight,
+              color: color,
+              fontStyle: fontStyle),
+          textAlign: TextAlign,
+        );
 }
 
 //==========================================================================
