@@ -15,7 +15,7 @@ class _PaginaInicioState extends State<PaginaInicio> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(children: [
-          Bloco_1(),
+          //Bloco_1(),
           bloco_2(),
         ]),
       ),

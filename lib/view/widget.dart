@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
 //==========================================================================
-Text textPerson(
+SelectableText textPerson(
     {text = '',
     fontSize = 20,
     fontWeight = null,
     color = const Color(0xffEC998E),
     fontStyle = FontStyle.normal,
     TextAlign = TextAlign.left}) {
-  return Text(
+  return SelectableText(
     text,
     style: TextStyle(
         fontSize: fontSize * 1,
