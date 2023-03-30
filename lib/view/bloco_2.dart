@@ -74,7 +74,10 @@ Widget bloco_0(largura) {
             height: responsive_altura,
             padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
             margin: EdgeInsets.only(top: 10),
-            child: Text(issoeotexto2, textAlign: TextAlign.justify),
+            child: Center(
+                child: Text(issoeotexto2,
+                    style: TextStyle(fontSize: 18, height: 1.2),
+                    textAlign: TextAlign.justify)),
             width: responsive_largura * 0.6)
       ]),
       width: responsive_largura,
@@ -95,15 +98,15 @@ Widget bloco_1(responsive, largura) {
       //  Rows itens - icons
       child: Row(children: [
         Spacer(flex: 10),
+        icon_site(image: 'images/icons/icon_instragram.png', fn: () {}),
+        Spacer(flex: 10),
+        icon_site(image: 'images/icons/icon_facebok.png', fn: () {}),
+        Spacer(flex: 20),
+        icon_site(image: 'images/icons/logo.png', fn: () {}),
+        Spacer(flex: 20),
         icon_site(image: 'images/icons/icon_gmail.png', fn: () {}),
         Spacer(flex: 10),
-        icon_site(image: 'images/icons/icon_facebok.png', fn: () {}),
-        Spacer(flex: 20),
-        icon_site(image: 'images/icons/icon_logo.png', fn: () {}),
-        Spacer(flex: 20),
-        icon_site(image: 'images/icons/icon_facebok.png', fn: () {}),
-        Spacer(flex: 10),
-        icon_site(image: 'images/icons/icon_facebok.png', fn: () {}),
+        icon_site(image: 'images/icons/icon_whatsapp.png', fn: () {}),
         Spacer(flex: 10),
       ]));
   //===================================================================
