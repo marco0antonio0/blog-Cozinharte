@@ -29,7 +29,7 @@ class _bloco_2State extends State<bloco_2> {
   }
 }
 
-//==================================================================
+//=================================================================
 // bloco de informações e imagem chef
 Widget bloco_0(largura) {
   print(largura);
