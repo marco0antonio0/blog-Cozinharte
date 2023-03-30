@@ -50,12 +50,12 @@ Widget topbar(largura) {
     color: Color(0xffF67968),
     child: Row(
       children: [
-        CircularImage(responsive, fn: () {}),
+        CircularImage(responsive, fn: () {}, image: 'images/icons/logo.png'),
         Spacer(flex: 1),
         textColunm(responsive),
         Spacer(flex: 100),
         CircularImage(responsive - 10,
-            image: 'images/BTN_menu.png', fn: () {}, efeito: true),
+            image: 'images/icons/BTN_menu.png', fn: () {}, efeito: true),
         Spacer(flex: responsive_flex),
       ],
     ),
@@ -176,8 +176,8 @@ Widget carrosel(largura) {
       children: [
         //
         largura > 850
-            ? CircularImage(90, image: 'images/btn_next_left.png', efeito: true,
-                fn: () {
+            ? CircularImage(90,
+                image: 'images/icons/btn_next_left.png', efeito: true, fn: () {
                 instance.controllerImage.previousPage(
                     duration: Duration(milliseconds: 300),
                     curve: Curves.decelerate);
@@ -188,7 +188,7 @@ Widget carrosel(largura) {
         //
         largura > 850
             ? CircularImage(90,
-                image: 'images/btn_next_right.png', efeito: true, fn: () {
+                image: 'images/icons/btn_next_right.png', efeito: true, fn: () {
                 instance.controllerImage.nextPage(
                     duration: Duration(milliseconds: 300),
                     curve: Curves.decelerate);
