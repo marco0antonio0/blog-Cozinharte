@@ -1,10 +1,8 @@
-// oi
 import 'dart:async';
 import 'package:blog_grupo/controller/controllerPages.dart';
 import 'package:blog_grupo/view/widget.dart';
 import 'package:flutter/material.dart';
 
-//  essa
 Backend instance = Backend.instance;
 
 class Bloco_1 extends StatefulWidget {
