@@ -3,7 +3,7 @@ import 'dart:js';
 import 'package:blog_grupo/view/widget.dart';
 import 'package:flutter/material.dart';
 
-//===================================================================
+//=================================================================== essa é a minha
 //
 class bloco_2 extends StatefulWidget {
   const bloco_2({super.key});
@@ -97,11 +97,11 @@ Widget bloco_1(responsive, largura) {
       //  Rows itens - icons
       child: Row(children: [
         Spacer(flex: 10),
-        icon_site(image: 'images/icons/icon_facebok.png', fn: () {}),
+        icon_site(image: 'images/icons/icon_gmail.png', fn: () {}),
         Spacer(flex: 10),
         icon_site(image: 'images/icons/icon_facebok.png', fn: () {}),
         Spacer(flex: 20),
-        icon_site(image: 'images/icons/icon_facebok.png', fn: () {}),
+        icon_site(image: 'images/icons/icon_logo.png', fn: () {}),
         Spacer(flex: 20),
         icon_site(image: 'images/icons/icon_facebok.png', fn: () {}),
         Spacer(flex: 10),
