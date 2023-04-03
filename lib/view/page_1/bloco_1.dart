@@ -142,8 +142,9 @@ Widget RowTextTitulo_1(largura) {
 //========================================================<<<<<<<<<<<<<<<<<
 Widget RowTextTitulo_2(largura) {
   int responsive = 120;
-  if (largura < 1100) responsive = 90;
-  if (largura < 750) responsive = 80;
+  if (largura < 1100) responsive -= 20;
+  if (largura < 750) responsive -= 20;
+  if (largura < 600) responsive -= 10;
 
   int fontsize_1 = 40;
   if (largura < 1250) fontsize_1 -= 5;
@@ -154,6 +155,7 @@ Widget RowTextTitulo_2(largura) {
 
   return Container(
     height: responsive * 1,
+    // color: Colors.red,
     width: largura,
     child: Stack(
       children: [
@@ -169,7 +171,7 @@ Widget RowTextTitulo_2(largura) {
 
 //========================================================<<<<<<<<<<<<<<<<<
 Widget carrosel(largura) {
-  int altura_responsive = 400;
+  int altura_responsive = 400 + 50;
 
   //  altura
   if (largura < 890) altura_responsive -= 50;
@@ -177,9 +179,11 @@ Widget carrosel(largura) {
   if (largura < 790) altura_responsive -= 50;
   if (largura < 675) altura_responsive -= 1;
   if (largura < 490) altura_responsive -= 20;
-
+  double responsive_geral = 0;
+  if (largura < 1250) responsive_geral -= 10;
+  if (largura < 800) responsive_geral -= 10;
   return Container(
-    height: altura_responsive * 1,
+    height: (altura_responsive * 1) + responsive_geral,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -192,8 +196,7 @@ Widget carrosel(largura) {
                     curve: Curves.decelerate);
               })
             : Container(),
-        //
-        TrocaImagem(),
+        TrocaImagem(altura_responsive),
         //
         largura > 850
             ? CircularImage(90,
@@ -210,7 +213,8 @@ Widget carrosel(largura) {
 }
 
 class TrocaImagem extends StatefulWidget {
-  TrocaImagem({super.key});
+  TrocaImagem(this.altura_responsive, {super.key});
+  var altura_responsive;
   @override
   State<TrocaImagem> createState() => _TrocaImagemState();
 }
@@ -224,7 +228,7 @@ class _TrocaImagemState extends State<TrocaImagem> {
     double largura = MediaQuery.of(context).size.width;
     //=====================================================
     //=====================================================
-    int largura_image = 1400;
+    double largura_image = 1400;
     //=====================================================
     //  largura
     if (largura < 1600) largura_image -= 300;
@@ -233,22 +237,32 @@ class _TrocaImagemState extends State<TrocaImagem> {
     if (largura < 890) largura_image -= 60;
     if (largura < 790) largura_image -= 20;
     if (largura < 675) largura_image -= 50;
-    if (largura < 560) largura_image -= 40;
-    if (largura < 520) largura_image -= 40;
-    if (largura < 470) largura_image -= 40;
-    if (largura < 420) largura_image -= 20;
-    if (largura < 400) largura_image -= 0;
+    if (largura < 590) largura_image -= 40;
+    if (largura < 550) largura_image -= 40;
+    if (largura < 500) largura_image -= 40;
+    if (largura < 460) largura_image -= 40;
+    if (largura < 420) largura_image -= 40;
+    if (largura < 390) largura_image -= 40;
+
     //=====================================================
     return Container(
-      width: MediaQuery.of(context).size.width > 490
-          ? largura_image - 20
-          : largura_image - 35,
+      // color: Colors.green,
+      width: largura_image,
       child: PageView.builder(
           controller: instance.controllerImage,
           itemCount: instance.pratosPrincipais.length,
           itemBuilder: (_, currentIndex) {
-            return image_mecanismo(
-                largura_image, instance.pratosPrincipais, currentIndex);
+            return Column(
+              children: [
+                Container(
+                  // color: Colors.red,
+                  height: widget.altura_responsive - 50,
+                  child: image_mecanismo(
+                      largura_image, instance.pratosPrincipais, currentIndex),
+                ),
+                selectorCircular(currentIndex)
+              ],
+            );
           }),
     );
   }
@@ -270,6 +284,7 @@ class _image_mecanismoState extends State<image_mecanismo> {
   @override
   var enable = false;
   Widget build(BuildContext context) {
+    double largura = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: () {
         instance1.data_now = instance.pratosPrincipais[widget.currentIndex];
@@ -280,9 +295,11 @@ class _image_mecanismoState extends State<image_mecanismo> {
       }),
       child: Container(
           width: widget.largura_image * 1,
-          margin: enable
-              ? EdgeInsets.symmetric(horizontal: 40 + 10, vertical: 10)
-              : EdgeInsets.symmetric(horizontal: 40, vertical: 0),
+          margin: largura < 650
+              ? EdgeInsets.symmetric(horizontal: 10, vertical: 10)
+              : (enable
+                  ? EdgeInsets.symmetric(horizontal: 40 + 10, vertical: 10)
+                  : EdgeInsets.symmetric(horizontal: 40, vertical: 0)),
           decoration: BoxDecoration(
               image: DecorationImage(
                   image: NetworkImage(

@@ -49,26 +49,35 @@ Widget bloco_0(largura) {
       "Com uma paixão avassaladora pela culinária desde criança, Isadora sempre esteve à frente das panelas, experimentando novos ingredientes, combinações de sabores e criando pratos incríveis. Com anos de experiência em cozinhas de renomados restaurantes internacionais, Isadora decidiu que era hora de compartilhar seus conhecimentos e sua paixão pela culinária com o mundo. Foi assim que ela decidiu criar seu blog de receitas culinárias, onde busca inspirar e incentivar pessoas de todos os lugares a experimentar novas receitas e criar momentos inesquecíveis ao redor da mesa. Em seu blog, Isadora oferece uma variedade de receitas, desde opções simples e rápidas para o dia a dia até pratos elaborados e sofisticados para ocasiões especiais. Ela acredita que a comida é uma forma de amor e que cada prato que preparamos deve ser feito com cuidado, amor e dedicação. Seu vasto conhecimento em gastronomia e sua paixão pela culinária, Isadora promete trazer a vocês uma experiência única e saborosa. Junte-se a ela nessa jornada culinária e descubra novos sabores e possibilidades na cozinha!";
   return Container(
       child: Row(children: [
-        Container(
-            height: responsive_altura,
-            padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
-            child: Column(children: [
-              //=========================================================
-              //container imagem
-              Container(
-                  height: responsive_altura * 0.4,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      image: DecorationImage(
-                          image: AssetImage("images/img_chef.png")))),
-              //=========================================================
-              //texto em baixo da imagem no bloco_0
-              Container(
-                  width: responsive_largura * 0.3,
-                  margin: EdgeInsets.only(top: 30),
-                  child: Text(issoeotexto, textAlign: TextAlign.justify))
-            ]),
-            width: responsive_largura * 0.4),
+        largura < 780
+            ? Container()
+            : Container(
+                height: responsive_altura,
+                padding: EdgeInsets.symmetric(horizontal: 40, vertical: 10),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Spacer(flex: 30),
+                      //=========================================================
+                      //container imagem
+                      Container(
+                          height: responsive_altura * 0.55,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(30),
+                              image: DecorationImage(
+                                  image: AssetImage("images/img_chef.png")))),
+                      //=========================================================
+                      //=========================================================
+                      //texto em baixo da imagem
+                      Container(
+                          width: responsive_largura * 0.3,
+                          margin: EdgeInsets.only(top: 30),
+                          child:
+                              Text(issoeotexto, textAlign: TextAlign.justify)),
+                      //=========================================================
+                      Spacer(flex: 100),
+                    ]),
+                width: responsive_largura * 0.4),
         //=========================================================
         Container(
             height: responsive_altura,
@@ -78,7 +87,7 @@ Widget bloco_0(largura) {
                 child: Text(issoeotexto2,
                     style: TextStyle(fontSize: 18, height: 1.2),
                     textAlign: TextAlign.justify)),
-            width: responsive_largura * 0.6)
+            width: responsive_largura * (largura < 780 ? 1 : 0.6))
       ]),
       width: responsive_largura,
       decoration: BoxDecoration(
@@ -90,6 +99,11 @@ Widget bloco_0(largura) {
 //===================================================================
 //* essa é a bar de baixo icons rede sociais
 Widget bloco_1(responsive, largura) {
+  var responsive_ = 0;
+  if (largura < 1065) responsive_ -= 40;
+  if (largura <= 935) responsive_ -= 40;
+  if (largura <= 827) responsive_ -= 40;
+  if (largura <= 725) responsive_ -= 40;
   return Container(
       width: largura,
       height: responsive,
@@ -97,17 +111,36 @@ Widget bloco_1(responsive, largura) {
       //===================================================================
       //  Rows itens - icons
       child: Row(children: [
-        Spacer(flex: 10),
-        icon_site(image: 'images/icons/icon_instragram.png', fn: () {}),
-        Spacer(flex: 10),
-        icon_site(image: 'images/icons/icon_facebok.png', fn: () {}),
+        Spacer(flex: largura < 780 ? 20 : 10),
+        icon_site(
+            image: 'images/icons/icon_instragram.png',
+            fn: () {},
+            responsive_: responsive_),
+        largura < 780 ? Container() : Spacer(flex: 10),
+        largura < 780
+            ? Container()
+            : icon_site(
+                image: 'images/icons/icon_facebok.png',
+                fn: () {},
+                responsive_: responsive_),
         Spacer(flex: 20),
-        icon_site(image: 'images/icons/logo.png', fn: () {}),
+        icon_site(
+            image: 'images/icons/logo.png',
+            fn: () {},
+            responsive_: responsive_),
         Spacer(flex: 20),
-        icon_site(image: 'images/icons/icon_gmail.png', fn: () {}),
-        Spacer(flex: 10),
-        icon_site(image: 'images/icons/icon_whatsapp.png', fn: () {}),
-        Spacer(flex: 10),
+        largura < 780
+            ? Container()
+            : icon_site(
+                image: 'images/icons/icon_gmail.png',
+                fn: () {},
+                responsive_: responsive_),
+        largura < 780 ? Container() : Spacer(flex: 10),
+        icon_site(
+            image: 'images/icons/icon_whatsapp.png',
+            fn: () {},
+            responsive_: responsive_),
+        Spacer(flex: largura < 780 ? 20 : 10),
       ]));
   //===================================================================
 }
@@ -120,13 +153,13 @@ Widget img_person() {
 
 //===================================================
 //  container clicavel circular
-Widget icon_site({image, fn, size = 100}) {
+Widget icon_site({image, fn, size = 80, responsive_}) {
   return InkWell(
       onTap: () => fn(),
       child: Center(
           child: Container(
-              width: size,
-              height: size,
+              width: size + (responsive_ * 0.1),
+              height: size + (responsive_ * 0.1),
               decoration: BoxDecoration(
                   image: DecorationImage(image: AssetImage(image)),
                   shape: BoxShape.circle,

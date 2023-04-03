@@ -119,3 +119,71 @@ Widget textColunm(responsive) {
     ),
   );
 }
+
+class selectorCircular extends StatelessWidget {
+  selectorCircular(this.selector, {super.key});
+  var selector;
+  bool btn1 = false;
+  bool btn2 = false;
+  bool btn3 = false;
+  @override
+  Widget build(BuildContext context) {
+    if (selector == 0) {
+      btn1 = true;
+      btn2 = false;
+      btn3 = false;
+    }
+    if (selector == 1) {
+      btn1 = false;
+      btn2 = true;
+      btn3 = false;
+    }
+    if (selector == 2) {
+      btn1 = false;
+      btn2 = false;
+      btn3 = true;
+    }
+    double largura = MediaQuery.of(context).size.width;
+    double responsive_size = 20;
+    double responsive_geral = 0;
+    if (largura < 1250) responsive_geral -= 10;
+    if (largura < 800) responsive_geral -= 10;
+    if (largura < 600) responsive_geral -= 0;
+    if (largura < 1250) responsive_size -= 2;
+    if (largura < 800) responsive_size -= 2;
+    if (largura < 600) responsive_size -= 2;
+    return Container(
+      height: 50 + (responsive_geral),
+      width: 130 + (responsive_geral * 2),
+      // color: Colors.green,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Container(
+              width: responsive_size,
+              height: responsive_size,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xffF67968).withOpacity(btn1 ? 1 : .3),
+              )),
+          //
+          Container(
+              width: responsive_size,
+              height: responsive_size,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xffF67968).withOpacity(btn2 ? 1 : .3),
+              )),
+          //
+          Container(
+              width: responsive_size,
+              height: responsive_size,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: Color(0xffF67968).withOpacity(btn3 ? 1 : .3),
+              )),
+        ],
+      ),
+    );
+  }
+}
