@@ -54,7 +54,7 @@ Widget RowTextTitulo_1(largura) {
     child: Align(
         alignment: Alignment(0, .8),
         child: textPerson(
-            text: instance1.data[0]['titulo'],
+            text: instance1.data_now['titulo'],
             fontSize: fontsize_1 + responsive_text)),
   );
 }
@@ -140,7 +140,7 @@ class _ImageReceitaState extends State<ImageReceita> {
             margin: EdgeInsets.symmetric(horizontal: 40),
             decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage(instance1.data[0]['image']!),
+                    image: NetworkImage(instance1.data_now['image']),
                     fit: BoxFit.fitHeight),
                 borderRadius: BorderRadius.circular(50))));
   }
@@ -178,7 +178,7 @@ class blocoAbaixoDaImagem extends StatelessWidget {
                               image: AssetImage(
                                   'images/icons/estrelas avaiação 1.png')))),
                   //======================================
-                  text: instance1.data[0]['avaliacao'],
+                  text: instance1.data_now['avaliacao'],
                   fontSize: 24 + responsive_text,
                   color: Colors.black),
               //===================================================
@@ -193,7 +193,7 @@ class blocoAbaixoDaImagem extends StatelessWidget {
                               text: 'TEMPO DE PREPARO',
                               fontSize: 30 + (responsive_text * 1.2)))),
                   //======================================
-                  text: instance1.data[0]['tempo_de_preparo']),
+                  text: instance1.data_now['tempo_de_preparo']),
 
               //===================================================
               item_linha(altura_responsive),
@@ -207,7 +207,7 @@ class blocoAbaixoDaImagem extends StatelessWidget {
                               text: 'RENDIMENTO',
                               fontSize: 30 + (responsive_text * 1.2)))),
                   //======================================
-                  text: instance1.data[0]['rendimento']),
+                  text: instance1.data_now['rendimento']),
             ],
           ),
         ));

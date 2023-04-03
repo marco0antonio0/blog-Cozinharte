@@ -1,14 +1,19 @@
-import 'dart:async';
 import 'package:blog_grupo/controller/controllerPages.dart';
+import 'package:blog_grupo/model/model.dart';
+import 'package:blog_grupo/view/page_item/page.dart';
 import 'package:blog_grupo/view/widget.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:http/http.dart';
 
 Backend instance = Backend.instance;
+Items instance1 = Items.instance;
+Connect instance2 = Connect();
 
 //  modificando
 class Bloco_1 extends StatefulWidget {
-  const Bloco_1({super.key});
-
+  Bloco_1(this.data, {super.key});
+  var data;
   @override
   State<Bloco_1> createState() => _Bloco_1State();
 }
@@ -16,6 +21,8 @@ class Bloco_1 extends StatefulWidget {
 class _Bloco_1State extends State<Bloco_1> {
   @override
   Widget build(BuildContext context) {
+    //=======================================
+
     double largura = MediaQuery.of(context).size.width;
     return Container(
       width: largura,
@@ -211,28 +218,9 @@ class _TrocaImagemState extends State<TrocaImagem> {
   int i = 0;
   @override
   Widget build(BuildContext context) {
-    /* final periodicTimer = Timer.periodic(
-      const Duration(milliseconds: 5000),
-      (timer) {
-        if (i < 3) {
-          instance.controllerImage.animateToPage(i,
-              duration: Duration(milliseconds: 500), curve: Curves.decelerate);
-          i++;
-        } else {
-          instance.controllerImage.animateToPage(0,
-              duration: Duration(milliseconds: 500), curve: Curves.decelerate);
-          i = 0;
-        }
-      },
-    ); */
     //=====================================================
     double largura = MediaQuery.of(context).size.width;
     //=====================================================
-    List<Map<String, dynamic>> listaImagem = [
-      {'id': 0, 'image': 'images/img1_carrossel.png'},
-      {'id': 1, 'image': 'images/img2_carrossel.png'},
-      {'id': 2, 'image': 'images/img3_carrossel.png'},
-    ];
     //=====================================================
     int largura_image = 1400;
     //=====================================================
@@ -255,17 +243,51 @@ class _TrocaImagemState extends State<TrocaImagem> {
           : largura_image - 35,
       child: PageView.builder(
           controller: instance.controllerImage,
-          itemCount: listaImagem.length,
+          itemCount: instance.pratosPrincipais.length,
           itemBuilder: (_, currentIndex) {
-            return Container(
-                width: largura_image * 1,
-                margin: EdgeInsets.symmetric(horizontal: 40),
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(listaImagem[currentIndex]['image']),
-                        fit: BoxFit.fitHeight),
-                    borderRadius: BorderRadius.circular(50)));
+            return image_mecanismo(
+                largura_image, instance.pratosPrincipais, currentIndex);
           }),
+    );
+  }
+}
+
+//===================================================
+// mecanismo visual
+class image_mecanismo extends StatefulWidget {
+  image_mecanismo(this.largura_image, this.listaImagem, this.currentIndex,
+      {super.key});
+  var largura_image;
+  var listaImagem;
+  var currentIndex;
+  @override
+  State<image_mecanismo> createState() => _image_mecanismoState();
+}
+
+class _image_mecanismoState extends State<image_mecanismo> {
+  @override
+  var enable = false;
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        instance1.data_now = instance.pratosPrincipais[widget.currentIndex];
+        print(instance1.data_now);
+        Get.to(() => page_item());
+      },
+      onHover: (value) => setState(() {
+        enable = value;
+      }),
+      child: Container(
+          width: widget.largura_image * 1,
+          margin: enable
+              ? EdgeInsets.symmetric(horizontal: 40 + 10, vertical: 10)
+              : EdgeInsets.symmetric(horizontal: 40, vertical: 0),
+          decoration: BoxDecoration(
+              image: DecorationImage(
+                  image: NetworkImage(
+                      widget.listaImagem[widget.currentIndex]['image']),
+                  fit: BoxFit.fitWidth),
+              borderRadius: BorderRadius.circular(50))),
     );
   }
 }
@@ -280,19 +302,23 @@ Widget RowsCards(largura) {
     child: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        cards_responsive(largura, altura_container,
-            image: 'images/img_categoria1.png', text: 'Sobremesa', fn: () {}),
+        cards_responsive(altura_container,
+            image: instance.cardsList[1]['image'],
+            text: instance.cardsList[1]['titulo'],
+            fn: () {}),
         //===================================================
         Linha_divisoria(altura_container),
         //===================================================
-        cards_responsive(largura, altura_container,
-            image: 'images/img_categoria2.png', text: 'Massas', fn: () {}),
+        cards_responsive(altura_container,
+            image: instance.cardsList[0]['image'],
+            text: instance.cardsList[0]['titulo'],
+            fn: () {}),
         //===================================================
         Linha_divisoria(altura_container),
         //===================================================
-        cards_responsive(largura, altura_container,
-            image: 'images/img_categoria3.png',
-            text: 'Receita Fitness',
+        cards_responsive(altura_container,
+            image: instance.cardsList[2]['image'],
+            text: instance.cardsList[2]['titulo'],
             fn: () {}),
       ],
     ),
@@ -308,40 +334,71 @@ Widget Linha_divisoria(altura_divisoria) {
       color: Color(0xffEC998E));
 }
 
-//========================================================<<<<<<<<<<<<<<<<<
-Widget cards_responsive(largura, altura_card,
-    {text = 'Sobremesas', image = 'images/img_categoria1.png', fn}) {
-  //  fontsize
-  int fontsize_1 = 25;
-  if (largura < 1020) fontsize_1 -= 3;
-  if (largura < 890) fontsize_1 -= 3;
-  //  largura do card individual
-  int largura_card = 300;
-  if (largura < 1170) largura_card -= 30;
-  if (largura < 1020) largura_card -= 30;
-  if (largura < 890) largura_card -= 30;
-  if (largura < 770) largura_card -= 30;
-  return InkWell(
-    onTap: () => fn(),
-    child: Container(
-      child: Column(
-        children: [
-          SizedBox(height: 10),
-          Container(
-              height: altura_card * 0.8,
-              width: largura_card * 1,
-              decoration: BoxDecoration(
-                  image: DecorationImage(image: AssetImage(image)),
-                  borderRadius: BorderRadius.circular(50))),
-          SizedBox(height: largura > 1020 ? 10 : 0),
-          Container(
-              child: textPerson(
-                  text: text, color: Colors.black, fontSize: fontsize_1))
-        ],
-      ),
-    ),
-  );
+class cards_responsive extends StatefulWidget {
+  cards_responsive(this.altura_card,
+      {super.key, this.text, this.image, this.fn});
+  String? text;
+  String? image;
+
+  int? altura_card;
+  Function? fn;
+
+  @override
+  State<cards_responsive> createState() => _cards_responsiveState(
+      image: image, text: text, altura_card: altura_card, fn: fn);
 }
+
+class _cards_responsiveState extends State<cards_responsive> {
+  _cards_responsiveState({this.text, this.image, this.altura_card, this.fn});
+  @override
+  String? text;
+  String? image;
+  int? altura_card;
+  Function? fn;
+  var enable = false;
+  Widget build(BuildContext context) {
+    double largura = MediaQuery.of(context).size.width;
+    //  fontsize
+    int fontsize_1 = 25;
+    if (largura < 1020) fontsize_1 -= 3;
+    if (largura < 890) fontsize_1 -= 3;
+    //  largura do card individual
+    int largura_card = 300;
+    if (largura < 1170) largura_card -= 30;
+    if (largura < 1020) largura_card -= 30;
+    if (largura < 890) largura_card -= 30;
+    if (largura < 770) largura_card -= 30;
+    return InkWell(
+      onHover: (value) => setState(() {
+        enable = !value;
+      }),
+      onTap: () => fn!(),
+      child: Container(
+        // color: Colors.red,
+        margin: EdgeInsets.symmetric(
+            horizontal: enable ? 0 : 10, vertical: enable ? 0 : 10),
+        child: Column(
+          children: [
+            SizedBox(height: 10),
+            Container(
+                height: altura_card! * (largura > 900 ? 0.7 : .6),
+                width: largura_card * (largura > 1000 ? 1 : .9),
+                decoration: BoxDecoration(
+                    image: DecorationImage(image: NetworkImage(image!)),
+                    borderRadius: BorderRadius.circular(50))),
+            SizedBox(height: largura > 1020 ? 10 : 0),
+            Container(
+                child: textPerson(
+                    text: text, color: Colors.black, fontSize: fontsize_1))
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+//========================================================<<<<<<<<<<<<<<<<<
+
 //========================================================<<<<<<<<<<<<<<<<<
 
 Widget ColunmCards(largura) {
@@ -350,12 +407,16 @@ Widget ColunmCards(largura) {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         cards_responsive_2(largura,
-            image: 'images/img_categoria1.png', text: 'Sobremesa', fn: () {}),
+            image: instance.cardsList[2]['image'],
+            text: instance.cardsList[2]['titulo'],
+            fn: () {}),
         cards_responsive_2(largura,
-            image: 'images/img_categoria2.png', text: 'Massas', fn: () {}),
+            image: instance.cardsList[1]['image'],
+            text: instance.cardsList[1]['titulo'],
+            fn: () {}),
         cards_responsive_2(largura,
-            image: 'images/img_categoria3.png',
-            text: 'Receita Fitness',
+            image: instance.cardsList[0]['image'],
+            text: instance.cardsList[0]['titulo'],
             fn: () {}),
       ],
     ),
@@ -400,8 +461,8 @@ Widget cards_responsive_2(largura,
             width: responsive_Image * 1,
             margin: EdgeInsets.only(
                 left: responsive_MARGIN_ * 1, right: responsive_MARGIN_ * 1),
-            decoration:
-                BoxDecoration(image: DecorationImage(image: AssetImage(image))),
+            decoration: BoxDecoration(
+                image: DecorationImage(image: NetworkImage(image))),
           ),
           //  text   <<
           Flexible(
