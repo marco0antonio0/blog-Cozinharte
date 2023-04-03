@@ -96,7 +96,8 @@ class bloco_2 extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   textPerson(
-                      text: curiosidades,
+                      text:
+                          curiosidades1 + (largura > 500 ? curiosidades2 : ''),
                       color: Colors.black,
                       fontSize: 20 + (responsive * .008))
                 ],

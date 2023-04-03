@@ -15,7 +15,9 @@ final receita1 = {
   'rendimento': '15 porções',
 };
 
-final curiosidades =
+final curiosidades1 =
     '''• Acredita-se que a lasanha tenha sido criada na cidade de Nápoles, na Itália, por volta do século XIV.\n• A receita original consistia em massa de lasanha, molho de tomate e queijo parmesão.\n
-• A lasanha é tão popular na Itália que existe um feriado nacional dedicado a ela, conhecido como o Dia Nacional da Lasanha, que é comemorado em 29 de julho.\n
-• A maior lasanha do mundo foi feita em 2012 em uma cidade do Reino Unido. Ela tinha 5.707 metros de comprimento e pesava cerca de 4 toneladas.''';
+• A lasanha é tão popular na Itália que existe um feriado nacional dedicado a ela, conhecido como o Dia Nacional da Lasanha, que é comemorado em 29 de julho.\n''';
+
+final curiosidades2 =
+    '''• A maior lasanha do mundo foi feita em 2012 em uma cidade do Reino Unido. Ela tinha 5.707 metros de comprimento e pesava cerca de 4 toneladas.''';

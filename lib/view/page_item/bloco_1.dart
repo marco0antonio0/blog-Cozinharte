@@ -137,8 +137,9 @@ class _ImageReceitaState extends State<ImageReceita> {
             : largura_image - 35,
         child: Container(
             width: largura_image * 1,
-            margin: EdgeInsets.symmetric(horizontal: 40),
+            margin: EdgeInsets.symmetric(horizontal: 75),
             decoration: BoxDecoration(
+                color: Colors.grey.withOpacity(.2),
                 image: DecorationImage(
                     image: NetworkImage(instance1.data_now['image']),
                     fit: BoxFit.fitHeight),
@@ -157,6 +158,7 @@ class blocoAbaixoDaImagem extends StatelessWidget {
     double largura = MediaQuery.of(context).size.width;
     if (largura < 1450) responsive_text -= 5;
     if (largura < 1200) responsive_text -= 5;
+    if (largura < 600) responsive_text -= 3;
     print(largura);
     return Align(
         alignment: Alignment(0, 1),

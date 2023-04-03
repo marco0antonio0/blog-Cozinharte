@@ -149,6 +149,8 @@ Widget RowTextTitulo_2(largura) {
   if (largura < 1250) fontsize_1 -= 5;
   if (largura < 870) fontsize_1 -= 5;
   if (largura < 700) fontsize_1 -= 5;
+  if (largura < 600) fontsize_1 -= 2;
+  if (largura < 500) fontsize_1 -= 2;
 
   return Container(
     height: responsive * 1,
@@ -271,7 +273,6 @@ class _image_mecanismoState extends State<image_mecanismo> {
     return InkWell(
       onTap: () {
         instance1.data_now = instance.pratosPrincipais[widget.currentIndex];
-        print(instance1.data_now);
         Get.to(() => page_item());
       },
       onHover: (value) => setState(() {
@@ -286,7 +287,7 @@ class _image_mecanismoState extends State<image_mecanismo> {
               image: DecorationImage(
                   image: NetworkImage(
                       widget.listaImagem[widget.currentIndex]['image']),
-                  fit: BoxFit.fitWidth),
+                  fit: BoxFit.fitHeight),
               borderRadius: BorderRadius.circular(50))),
     );
   }
@@ -304,22 +305,28 @@ Widget RowsCards(largura) {
       children: [
         cards_responsive(altura_container,
             image: instance.cardsList[1]['image'],
-            text: instance.cardsList[1]['titulo'],
-            fn: () {}),
+            text: instance.cardsList[1]['titulo'], fn: () {
+          instance1.data_now = instance.cardsList[1];
+          Get.to(() => page_item());
+        }),
         //===================================================
         Linha_divisoria(altura_container),
         //===================================================
         cards_responsive(altura_container,
             image: instance.cardsList[0]['image'],
-            text: instance.cardsList[0]['titulo'],
-            fn: () {}),
+            text: instance.cardsList[0]['titulo'], fn: () {
+          instance1.data_now = instance.cardsList[0];
+          Get.to(() => page_item());
+        }),
         //===================================================
         Linha_divisoria(altura_container),
         //===================================================
         cards_responsive(altura_container,
             image: instance.cardsList[2]['image'],
-            text: instance.cardsList[2]['titulo'],
-            fn: () {}),
+            text: instance.cardsList[2]['titulo'], fn: () {
+          instance1.data_now = instance.cardsList[2];
+          Get.to(() => page_item());
+        }),
       ],
     ),
   );
@@ -408,16 +415,22 @@ Widget ColunmCards(largura) {
       children: [
         cards_responsive_2(largura,
             image: instance.cardsList[2]['image'],
-            text: instance.cardsList[2]['titulo'],
-            fn: () {}),
+            text: instance.cardsList[2]['titulo'], fn: () {
+          instance1.data_now = instance.cardsList[2];
+          Get.to(() => page_item());
+        }),
         cards_responsive_2(largura,
             image: instance.cardsList[1]['image'],
-            text: instance.cardsList[1]['titulo'],
-            fn: () {}),
+            text: instance.cardsList[1]['titulo'], fn: () {
+          instance1.data_now = instance.cardsList[1];
+          Get.to(() => page_item());
+        }),
         cards_responsive_2(largura,
             image: instance.cardsList[0]['image'],
-            text: instance.cardsList[0]['titulo'],
-            fn: () {}),
+            text: instance.cardsList[0]['titulo'], fn: () {
+          instance1.data_now = instance.cardsList[0];
+          Get.to(() => page_item());
+        }),
       ],
     ),
   );
@@ -429,6 +442,7 @@ Widget cards_responsive_2(largura,
   int fontsize_1 = 35;
   if (largura < 580) fontsize_1 -= 5;
   if (largura < 510) fontsize_1 -= 5;
+  if (largura < 450) fontsize_1 -= 5;
   //  responsive_1
   int responsive_Image = 200;
   if (largura < 580) responsive_Image -= 50;
@@ -473,10 +487,12 @@ Widget cards_responsive_2(largura,
                 text: text, color: Colors.black, fontSize: fontsize_1),
           ))),
           //  Image_BTN   <<
-          CircularImage(responsive_CircularImage,
-              efeito: true,
-              image: 'images/icons/btn_next_right.png',
-              fn: () {}),
+          largura > 450
+              ? CircularImage(responsive_CircularImage,
+                  efeito: true,
+                  image: 'images/icons/btn_next_right.png',
+                  fn: () {})
+              : Container(),
           //  margin   <<
           SizedBox(
             width: responsive_SizedBox_ * 1,
